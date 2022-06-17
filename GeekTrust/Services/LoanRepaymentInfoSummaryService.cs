@@ -74,9 +74,9 @@ namespace geektrust_family_demo.Services
                 var stringBuilder = new StringBuilder();
                 stringBuilder.Append(loanRepaymentInfo.Borrower.BankName);
                 stringBuilder.Append(" ");
-                stringBuilder.Append(loanRepaymentInfo.TotalAmountPaidToDate);
-                stringBuilder.Append(" ");
                 stringBuilder.Append(loanRepaymentInfo.Borrower.BorrowerName);
+                stringBuilder.Append(" ");
+                stringBuilder.Append(loanRepaymentInfo.TotalAmountPaidToDate);
                 stringBuilder.Append(" ");
                 stringBuilder.Append(loanRepaymentInfo.MonthlyInstallmentsRemaining);
                 stringBuilder.Append(loanRepaymentInfoSummary[i] == loanRepaymentInfoSummary.Last() ? "\n" : string.Empty);
