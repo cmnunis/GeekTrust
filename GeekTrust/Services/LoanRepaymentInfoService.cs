@@ -42,8 +42,7 @@ namespace geektrust_family_demo.Services
 
                 GetDataFromFileContents(loans, payments, balanceQueries, fileContents);
 
-                Console.WriteLine($"\r\nOUTPUT");
-                Console.WriteLine("------------");
+                Console.WriteLine($"\r\n");
                 var loanRepaymentInfoSummary = _loanRepaymentInfoSummaryService.GenerateLoanRepaymentInfoSummary(loans, payments, balanceQueries);
                 var output = _loanRepaymentInfoSummaryService.OutputLoanRepaymentInfoSummary(loanRepaymentInfoSummary);
                 Console.WriteLine(output);

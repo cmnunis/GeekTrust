@@ -1,49 +1,32 @@
-﻿using Microsoft.Extensions.Hosting;
-using System;
-using System.Threading;
+﻿using System;
 using System.Threading.Tasks;
 
 namespace geektrust_family_demo.Services
 {
-    public class ConsoleService : IHostedService
+    public class ConsoleService
     {
-        private readonly IHostApplicationLifetime _applicationLifetime;
         private readonly ILoanRepaymentInfoService _loanRepaymentInfoService;
         private readonly string[] _args;
 
-        public ConsoleService(IHostApplicationLifetime applicationLifetime, ILoanRepaymentInfoService loanRepaymentInfoService, string[] args)
+        public ConsoleService(ILoanRepaymentInfoService loanRepaymentInfoService, string[] args)
         {
-            _applicationLifetime = applicationLifetime ?? throw new ArgumentNullException(nameof(applicationLifetime));
             _loanRepaymentInfoService = loanRepaymentInfoService ?? throw new ArgumentNullException(nameof(loanRepaymentInfoService));
             _args = args ?? throw new ArgumentNullException(nameof(args));
         }
 
-        public Task StartAsync(CancellationToken cancellationToken)
+        public async Task StartAsync()
         {
-            _applicationLifetime.ApplicationStarted.Register(() =>
+            try
             {
-                Task.Run(async () =>
-                {
-                    try
-                    {
-                        await _loanRepaymentInfoService.GenerateLoanRepaymentInfoAsync(_args);
-                    }
-                    catch (Exception ex)
-                    {
-                        Console.WriteLine(ex.ToString());
-                    }
-                    finally
-                    {
-
-                        _applicationLifetime.StopApplication();
-                    }
-                });
-            });
-
-            return Task.CompletedTask;
+                 await _loanRepaymentInfoService.GenerateLoanRepaymentInfoAsync(_args);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
+            }
         }
 
-        public Task StopAsync(CancellationToken cancellationToken)
+        public Task StopAsync()
         {
             return Task.CompletedTask;
         }
